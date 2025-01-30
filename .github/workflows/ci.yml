@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build only
         # TODO: We might want to make our own action to ensure Zola is up-to-date
-        uses: halzz/zola-deploy-action@v0.19.2
+        uses: shalzz/zola-deploy-action@v0.19.2
         env:
           BUILD_ONLY: true
           BUILD_FLAG: "--drafts"
