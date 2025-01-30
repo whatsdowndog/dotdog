@@ -1,0 +1,10 @@
+{%- if page.title %}
+  {%- set page_title = page.title %}
+{%- elif section.title %}
+  {%- set page_title = section.title %}
+{%- else %}
+  {%- set page_title = config.title %}
+{%- endif %}
+<meta charset="utf-8" />
+<title>{{ page_title }}</title>
+{# TODO: way more #}

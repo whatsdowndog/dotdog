@@ -1,0 +1,44 @@
+# See https://www.getzola.org/documentation/getting-started/configuration/
+base_url = "https://whatsdown.dog"
+
+# TODO
+title = "Downdog | Software Reliability Experts"
+description = ""
+author = "hello@whatsdown.dog (Downdog, Inc.)"
+
+# TODO
+# theme = ""
+
+output_dir = "build"
+ignored_static = []
+ignored_content = []
+
+compile_sass = true
+minify_html = true
+
+generate_feeds = false
+
+build_search_index = true
+generate_sitemap = true
+generate_robots_txt = true
+
+# TODO
+taxonomies = []
+
+[markdown]
+highlight_code = true
+# TODO
+# highlight_theme = ""
+render_emoji = true
+# ???
+external_links_no_referrer = true
+bottom_footnotes = true
+
+# TODO
+[slugify]
+
+# TODO
+[search]
+
+[extra]
+# Put all your custom variables here

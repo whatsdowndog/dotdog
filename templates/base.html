@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include "partials/head.html" %}
+  </head>
+  <body>
+    <header>
+      {% include "partials/header.html" %}
+    </header>
+    <main>{% block content %} {% endblock %}</main>
+    {# TODO: Privacy and cookie policies #}
+    <footer>
+      {% include "partials/footer.html" %}
+    </footer>
+  </body>
+</html>
