@@ -15,4 +15,3 @@ jobs:
         env:
           BUILD_ONLY: true
           BUILD_FLAG: "--drafts"
-          BUILD_DIR: "build"
