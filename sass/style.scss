@@ -182,14 +182,6 @@ a {
     text-decoration: underline;
   }
 
-  // external link indicator (only for http links, not mailto or internal)
-  &[href^="http"]::after {
-    content: " ↗";
-    font-size: 0.75em;
-    vertical-align: super;
-    color: $fg-muted;
-  }
-
   &.logo {
     color: $fg-bright;
     font-weight: 700;
