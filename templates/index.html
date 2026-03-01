@@ -1,3 +1,28 @@
-{% extends "base.html" %} {% block content %}
-<h1>Downdog</h1>
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <section class="hero">
+    <pre class="ascii-box">
+┌──────────────────────────────────────────┐
+│  what's downdog?                         │
+│  nothing, what's down with you?<span class="blink">█</span>         │
+└──────────────────────────────────────────┘</pre>
+    <p>Our mission is to make the same tools and techniques used at the cutting edge of industry accessible to everyone.</p>
+  </section>
+
+  <section class="panels">
+    <div class="panel">
+      <h2>who we are</h2>
+      <p>Downdog is <a href="https://ca.linkedin.com/in/iredelmeier"><strong>Isobel Redelmeier</strong></a> and <a href="https://ca.linkedin.com/in/spikelindsey"><strong>Spike Lindsey</strong></a>. We are experienced SREs who have previously worked at Discord, Shopify, Lightstep, Wealthsimple, Pivotal, and Monzo.</p>
+    </div>
+    <div class="panel">
+      <h2>what we do</h2>
+      <p>We offer SRE consultancy. Most recently, we helped a TSX-listed company reduce their delivery cycle time <strong>from months to minutes</strong> by introducing CI and CD. <a href="mailto:hello@whatsdown.dog">Get in touch</a> if you're interested or just to say hi!</p>
+    </div>
+    <div class="panel">
+      <h2>where we're going</h2>
+      <p>We are working on a new product in the test automation/reliability space, codenamed <strong>ESME</strong>. We'll share more details on our blog as we prepare to launch.</p>
+    </div>
+  </section>
+</div>
 {% endblock content %}
