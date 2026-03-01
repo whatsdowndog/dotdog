@@ -1,28 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-  <section class="hero">
-    <pre class="ascii-box">
-┌──────────────────────────────────────────┐
-│  what's downdog?                         │
-│  nothing, what's down with you?<span class="blink">█</span>         │
-└──────────────────────────────────────────┘</pre>
-    <p>We help teams ship faster and sleep better. Reliability, observability, CI/CD &mdash; the stuff that sounds boring until it's 3am and everything's on fire.</p>
-  </section>
-
-  <section class="panels">
-    <div class="panel">
-      <h2>who we are</h2>
-      <p>Downdog is <a href="https://ca.linkedin.com/in/iredelmeier"><strong>Isobel Redelmeier</strong></a> and <a href="https://ca.linkedin.com/in/spikelindsey"><strong>Spike Lindsey</strong></a> &mdash; two SREs with 20+ years of combined experience at Discord, Shopify, Lightstep, Wealthsimple, Pivotal, and Monzo. We've seen systems break in every way imaginable — and quietly made them harder to break again.</p>
-    </div>
-    <div class="panel">
-      <h2>what we do</h2>
-      <p>SRE and reliability consulting &mdash; CI/CD pipelines, observability, performance tuning, infrastructure migration, and incident management. Most recently, we helped a major Canadian fintech reduce their delivery cycle time <strong>from months to minutes</strong>. <a href="mailto:hello@whatsdown.dog">Get in touch</a> if that sounds useful, or just to say hi.</p>
-    </div>
-    <div class="panel">
-      <h2>where we're going</h2>
-      <p>We're building <strong>ESME</strong>, a tool that enables large-scale automated code migrations. We'll share more on our <a href="/blog/">blog</a> as we get closer to launch.</p>
-    </div>
-  </section>
+  {{ section.content | safe }}
 </div>
 {% endblock content %}
