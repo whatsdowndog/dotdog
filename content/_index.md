@@ -24,7 +24,3 @@ SRE and reliability consulting:
 * CI/CD
 
 Most recently, we helped a major Canadian fintech reduce their delivery cycle time **from months to minutes**. [Get in touch](mailto:hello@whatsdown.dog) if that sounds useful, or just to say hi.
-
-## where we're going
-
-We're building **ESME**, a tool that enables large-scale automated code migrations. We'll share more on our [blog](/blog/) as we get closer to launch.
