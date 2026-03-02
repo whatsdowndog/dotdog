@@ -2,7 +2,7 @@
 base_url = "https://whatsdown.dog"
 
 # TODO
-title = "Downdog | Software Reliability Experts"
+title = "downdog | software reliability experts"
 description = "Downdog is an SRE consultancy specializing in reliability, observability, performance, and CI/CD. Founded by engineers from Discord, Shopify, and Lightstep."
 author = "hello@whatsdown.dog (Downdog, Inc.)"
 

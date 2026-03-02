@@ -1,5 +1,5 @@
 +++
-title = "about"
+title = "About"
 description = "Downdog is Isobel Redelmeier and Spike Lindsey — SREs from Discord, Shopify, Lightstep, and more, based in Toronto."
 +++
 

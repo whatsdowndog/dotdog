@@ -1,11 +1,11 @@
 +++
-title = "services"
+title = "Services"
 description = "SRE and reliability consulting — CI/CD, observability, performance, infrastructure migration, and incident management."
 +++
 
 We offer SRE and reliability consulting for teams that want to ship faster without sacrificing stability. We take on a small number of engagements at a time. If you're dealing with something on this list, [get in touch](mailto:hello@whatsdown.dog) - we'd love to hear what you're working on.
 
-## what we help with
+## What We Help With
 
 - **Observability**: instrumentation, tracing, metrics, logging, and making sure you actually understand what your systems are doing before they stop doing it. We can also help with cost management - o11y spend can sneak up on you!
 - **CI/CD**: pipeline design, test suite speedups, build optimization, deployment automation, and getting your delivery cycle time down from "after the CAB meeting" to continuous, on demand
@@ -13,7 +13,7 @@ We offer SRE and reliability consulting for teams that want to ship faster witho
 - **Infrastructure migration**: moving between cloud providers, containerization, Kubernetes and all the fun that comes with it. We strongly believe in zero-downtime migrations, but also know when to move faster.
 - **Incident management**: on-call design, runbooks, post-incident review, and building a culture where incidents make you stronger
 
-## how we work
+## How We Work
 
 Our main priority at the start of an engagement is to figure out how best to work together.
 
@@ -26,7 +26,7 @@ From there, we offer several engagement models:
 - **Ad hoc**: we scope and deliver specific projects at an hourly rate.
 - **Workshops**: developed on demand, covering topics like incident management, observability, and XP practices.
 
-## track record
+## Track Record
 
 Most recently, we helped a major Canadian fintech reduce their delivery cycle time **from months to minutes** by introducing CI and CD.
 
