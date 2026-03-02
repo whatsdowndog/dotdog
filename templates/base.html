@@ -13,5 +13,19 @@
     <footer>
       {%- include "partials/footer.html" -%}
     </footer>
+    <script>
+      function toggleTheme() {
+        var d = document.documentElement;
+        var next = d.getAttribute("data-theme") === "light" ? "" : "light";
+        if (next) { d.setAttribute("data-theme", next); localStorage.setItem("theme", next); }
+        else { d.removeAttribute("data-theme"); localStorage.removeItem("theme"); }
+        updateToggleLabel();
+      }
+      function updateToggleLabel() {
+        var btn = document.querySelector(".theme-toggle");
+        if (btn) btn.textContent = document.documentElement.getAttribute("data-theme") === "light" ? "[dark]" : "[light]";
+      }
+      updateToggleLabel();
+    </script>
   </body>
 </html>
