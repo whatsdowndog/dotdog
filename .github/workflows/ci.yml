@@ -1,17 +1,41 @@
-name: CI
+name: Build and deploy Zola website
 on:
   pull_request:
   push:
     branches:
       - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Build only
-        # TODO: We might want to make our own action to ensure Zola is up-to-date
-        uses: shalzz/zola-deploy-action@v0.19.2
-        env:
-          BUILD_ONLY: true
-          BUILD_FLAG: "--drafts"
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Zola + upload Pages artifact
+        uses: getzola/github-pages@066755243e69f508fd1a74739fbf1a65f656c790
+        with:
+          zola_version: v0.22.0
+          output_dir: build
+          build_flags: "--drafts"
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
