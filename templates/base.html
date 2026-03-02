@@ -16,9 +16,9 @@
     <script>
       function toggleTheme() {
         var d = document.documentElement;
-        var next = d.getAttribute("data-theme") === "light" ? "" : "light";
-        if (next) { d.setAttribute("data-theme", next); localStorage.setItem("theme", next); }
-        else { d.removeAttribute("data-theme"); localStorage.removeItem("theme"); }
+        var next = d.getAttribute("data-theme") === "light" ? "dark" : "light";
+        if (next === "light") { d.setAttribute("data-theme", "light"); } else { d.removeAttribute("data-theme"); }
+        localStorage.setItem("theme", next);
         updateToggleLabel();
       }
       function updateToggleLabel() {
