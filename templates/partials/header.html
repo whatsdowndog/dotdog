@@ -1,10 +1,11 @@
-<a href="/">
-  <img src="/images/logo.png" />
-</a>
-<nav>
-  <ul>
-    <li><a href="{{ get_url(path="@/services/_index.md") }}">What we do</a></li>
-    <li><a href="{{ get_url(path="@/about/_index.md" )}}">Who we are</a></li>
-    <li><a href="{{ get_url(path="@/blog/_index.md") }}">Blog</a></li>
-  </ul>
-</nav>
+<div class="container">
+  <a href="/" class="logo">downdog</a>
+  <nav>
+    <ul>
+      <li><a href="{{ get_url(path="@/about/_index.md" )}}">about</a></li>
+      <li><a href="{{ get_url(path="@/services/_index.md" )}}">services</a></li>
+      <li><a href="{{ get_url(path="@/blog/_index.md" )}}">blog</a></li>
+      <li><a href="mailto:hello@whatsdown.dog">contact</a></li>
+    </ul>
+  </nav>
+</div>
