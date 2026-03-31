@@ -1,42 +1,47 @@
 +++
-title = "800 Jenkins Jobs and How We Got There"
+title = "800 Jenkins Jobs"
 date = 2026-03-26
-draft = true
 +++
 
-**TL;DR:** Nobody sets out to have 800 Jenkins jobs. It happens one "just copy this pipeline and tweak it" at a time. CI/CD rot is real, and it compounds silently.
+**TL;DR:** Nobody sets out to have 800 Jenkins jobs. It happens one "just copy this pipeline and tweak it" at a time. CI/CD rot is real, and it compounds silently. Using tools "with the grain" can massively simplify operations and lead to surprising benefits.
 
-## the archaeology
+## what happened
 
-- Propel had ~800 distinct Jenkins jobs
-- most repos had at least 5 jobs: PR validation, build, deploy to QA, deploy to prod, etc.
-- multi-app repos multiplied this per application. one repo (mk-shared-services) had 50+ related jobs
-- common tasks (git tags, deployments) embedded directly in pipeline scripts - not shared
-- keeping equivalent tasks consistent required finding and updating all relevant pipelines, accounting for drift that had already occurred
-- scripts coupled to repository structure - behaved differently depending on existence of particular directories or build artifacts
+At Downdog, we both suffer from chronic SRE-brain. Some say it might even be [terminal](https://ghostty.org/). One symptom of this affliction is a deep distrust of messiness - whether that is tool sprawl, lack of clear ownership, unfocussed dashboards, or deeply-nested `if` statements. 
 
-## how it happens
+ Some moons ago, we saw something at a client that bothered us: a Jenkins instance with over 800 distinct jobs, mostly configured directly through the UI. Considering that the client had fewer than 20 live services, this felt off. No-one we spoke to could quite explain why that number was so high, but did share stories of how flaky, slow, and impenetrable the whole setup was.
 
-- nobody plans for 800 jobs. it accumulates:
-  - "copy the pipeline from that other project and tweak it"
-  - "add a new job for this deployment target"
-  - "this repo has a different structure, so the script needs a special case"
-  - "we need a separate job for the release branch"
-- each decision is reasonable in isolation. in aggregate: unmaintainable
-- inline pipelines configured through the Jenkins UI - not easily manipulated as code, not tracked through version control
-- jobs pinned to specific worker nodes rather than sharing capacity. combined with cron scheduling, this caused jobs to queue instead of executing immediately
-- worker nodes had version/tooling drift with no standardised way to keep them in sync
+ We decided to investigate and dig deeper. We found:
 
-## what we found along the way
+- most repos had at least 5 jobs: PR validation, build, deploy to QA, deploy to prod, etc. These jobs would call each other in succession, which got the job done (...most of the time), but gave zero visibility into how far through the chain anything was
+- repos with multiple services within multiplied this per service. One repo had 50+ related jobs. We affectionately named these micro-mono-repos
+- common tasks (git tagging, deployments) were embedded directly in pipeline scripts, often as Bash-in-a-textbox 
+- keeping equivalent tasks consistent required finding and updating all relevant pipelines manually through the UI, resulting in a significant amount of drift 
+- scripts were deeply coupled to repository structure, and behaved differently depending on existence of particular directories or build artifacts
 
-- implicit dependencies between builds that weren't documented
-- complexity in local builds on developer machines
-- for many repos, cutting a new release branch required manually setting up new, release-specific pipelines - without which integration jobs would fail
-- services with internal dependencies relied on those dependencies having already been successfully built for the new release branch
-- QA blocked from testing, sometimes for days, while waiting for builds to succeed
-- job configuration fanned out many layers deep across both the devops-jenkins repo and the Jenkins UI
+## understanding how it happens
 
-## the fix
+Nobody plans for this to happen. Teams are rushed, patterns aren't established, and information disseminates organically: 
+
+> "copy the pipeline from that other project and tweak it"
+
+> "add a new job for this deployment target"
+
+> "this repo has a different structure, so the script needs a special case"
+
+> "we need a separate job for the release branch"
+
+Each micro-decision unblocks delivery in the moment, and keeps everything moving for that hour or day. After a while, things start grinding to a halt - similar to the way rushing application code results in new features eventually becoming impossible. 
+
+## how we fixed it
+
+You may be thinking: "why don't you _just_ use GitHub Actions/Buildkite/the latest Kubernetes-native hotness?"
+
+And yes, when things are a mess, one way out is to rebuild from scratch, cleanly. Unfortunately, in our experience: 
+* engagements are already extremely time constrained
+* we are usually brought in to help clients achieve a specific business-related goal, and most of the time our business sponsors aren't particularly interested in how we achieve the goal - just that we achieved it
+* tool migrations only become net-positive when 100% complete - otherwise you're now running two systems in parallel and trying to keep them in sync
+* the last 10% of a migration always take longer than anyone expects, even when you take this fact into account (see [Hofstadter's law](https://en.wikipedia.org/wiki/Hofstadter%27s_law))
 
 - one pipeline per application repository, leveraging common scripts for standard tasks
 - moved project-specific logic into configuration (e.g. top-level pom.xml) so pipelines less coupled to repo structure
@@ -54,4 +59,4 @@ draft = true
 - the fix isn't heroic - it's disciplined: shared patterns, config as code, clear ownership, and the willingness to delete things
 - **if nobody can explain what a pipeline does, it probably shouldn't exist**
 
-*CI/CD pipelines that nobody understands are a reliability risk. If your build system has grown beyond anyone's ability to reason about it, [we can help untangle it](mailto:hello@whatsdown.dog).*
+*CI/CD setups that nobody understands are a reliability risk. If your build system has grown beyond anyone's ability to reason about it, [we can help untangle it](mailto:hello@whatsdown.dog).*
