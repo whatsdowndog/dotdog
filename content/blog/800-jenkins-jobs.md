@@ -9,12 +9,12 @@ date = 2026-03-26
 
 At Downdog, we both suffer from chronic SRE-brain. Some say it might even be [terminal](https://ghostty.org/). One symptom of this affliction is a deep distrust of messiness - whether that is tool sprawl, lack of clear ownership, unfocussed dashboards, or deeply-nested `if` statements. 
 
- Some moons ago, we saw something at a client that bothered us: a Jenkins instance with over 800 distinct jobs, mostly configured directly through the UI. Considering that the client had fewer than 20 live services, this felt off. No-one we spoke to could quite explain why that number was so high, but did share stories of how flaky, slow, and impenetrable the whole setup was.
+ Some moons ago, we saw something at a client that bothered us: a Jenkins instance with over 800 distinct jobs, mostly configured directly through the UI. Considering the client had fewer than 20 live services, this felt off. No one we spoke to could quite explain why that number was so high, but did share stories of how flaky, slow, and impenetrable the whole setup was.
 
  We decided to investigate and dig deeper. We found:
 
 - most repos had at least 5 jobs: PR validation, build, deploy to QA, deploy to prod, etc. These jobs would call each other in succession, which got the job done (...most of the time), but gave zero visibility into how far through the chain anything was
-- repos with multiple services within multiplied this per service. One repo had 50+ related jobs. We affectionately named these micro-mono-repos
+- repositories containing multiple services saw job counts multiply exponentially. One repo had 50+ related jobs. We affectionately named these micro-mono-repos - multiple services crammed into one repo without the tooling to support a true monorepo
 - common tasks (git tagging, deployments) were embedded directly in pipeline scripts, often as Bash-in-a-textbox 
 - keeping equivalent tasks consistent required finding and updating all relevant pipelines manually through the UI, resulting in a significant amount of drift 
 - scripts were deeply coupled to repository structure, and behaved differently depending on existence of particular directories or build artifacts
@@ -43,20 +43,22 @@ And yes, when things are a mess, one way out is to rebuild from scratch, cleanly
 * tool migrations only become net-positive when 100% complete - otherwise you're now running two systems in parallel and trying to keep them in sync
 * the last 10% of a migration always take longer than anyone expects, even when you take this fact into account (see [Hofstadter's law](https://en.wikipedia.org/wiki/Hofstadter%27s_law))
 
-- one pipeline per application repository, leveraging common scripts for standard tasks
-- moved project-specific logic into configuration (e.g. top-level pom.xml) so pipelines less coupled to repo structure
-- larger tasks (deploying) moved into application-agnostic scripts in shared repos
-- clearly separated what should be owned by DevOps (infrastructure/deployment) from what should be owned by dev teams (build/test/code analysis)
-- migrated all inline pipelines to code - changes tracked through commits and PRs
-- switched from cron triggers to push/merge triggers
-- one "shape" of pipeline per service type: Spring Boot, JAR/WAR, front-end
+Our favoured approach is to help clients get the most of their existing tools, as fast as possible, and set them up for a smoother migration should they choose to embark on that journey later. This also means working "with the grain" of their tools - in other words, using established patterns recommended by the tool authors and community, rather than shoehorning or duct-taping tools into doing things they are not well-suited for.
+
+In terms of Jenkins specifically, this meant:
+- one Jenkinsfile pipeline per application repository, leveraging common scripts for standard tasks. This enabled usage of Jenkins' org folder feature, meaning that new pipelines are automatically detected, reducing the amount of time teams had to spend configuring Jenkins by hand
+- moving project-specific logic into configuration (e.g. top-level `pom.xml`) so pipelines were no longer coupled to repo structure
+- larger tasks (e.g. deploying) moved into application-agnostic scripts pulled from a shared repository. This  clearly separated what is owned by DevOps (infrastructure/deployment) from what is owned by dev teams (build/test/code analysis), and makes future migration between CI/CD tools easier
+- migrating all inline pipelines to code - changes tracked through commits and PRs, rather than through Jenkins' awkward XML diffing
+- one "shape" of pipeline for each kind of repo: backend, frontend, infrastructure. We wrote a small tool to template these so that they would stay consistent over time, and allow the client's DevOps team to roll out changes across all pipelines easily
+
+We shamelessly ~cribbed~ were inspired by the Jenkins open source org's own Jenkins setup, which taught us a lot about how the Jenkins team thinks about Jenkins! We highly recommend this trick as it often also gives insight into the future direction that tools are looking at.
+
+We ended up with a massively simplified setup that was now backed up fully as code, ran significantly faster (due to jobs no longer sitting in queues), and could be understood by any engineer at the company. We also received feedback that teams were no longer afraid of CI and felt able to spin up new pipelines themselves, following the established patterns.
 
 ## the lesson
 
-- CI/CD rot is real. every shortcut, every copy-paste, every "just add a new job" adds maintenance burden that compounds silently
-- you don't notice it accumulating because each individual change is small and reasonable
-- by the time you notice, you have 800 jobs and nobody can explain why half of them exist
-- the fix isn't heroic - it's disciplined: shared patterns, config as code, clear ownership, and the willingness to delete things
-- **if nobody can explain what a pipeline does, it probably shouldn't exist**
+CI/CD rot is real. every shortcut, every copy-paste, every "just add a new job" adds maintenance burden that compounds silently. You don't notice it accumulating because each individual change is small and reasonable, and by the time you notice, you have 800 jobs and nobody can explain why half of them exist. The fix is simple and boring engineering: shared patterns, config as code, clear ownership, and the willingness to delete things:
+**if nobody can explain what a pipeline does, it probably shouldn't exist**
 
 *CI/CD setups that nobody understands are a reliability risk. If your build system has grown beyond anyone's ability to reason about it, [we can help untangle it](mailto:hello@whatsdown.dog).*
