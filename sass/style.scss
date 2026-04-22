@@ -30,18 +30,18 @@ $gutter:        2rem;
 }
 
 [data-theme="light"] {
-  --bg:           #f5f5f0;
-  --bg-raised:    #eaeae5;
-  --bg-inset:     #efefe9;
-  --fg:           #4a4a4a;
-  --fg-bright:    #1a1a1a;
-  --fg-muted:     #999999;
-  --green:        #007a1f;
-  --green-dim:    #5cb07a;
-  --green-glow:   rgba(0, 122, 31, 0.06);
-  --border-color: #c8d8c8;
+  --bg:           #ffffff;
+  --bg-raised:    #f5f5f5;
+  --bg-inset:     #fafafa;
+  --fg:           #333333;
+  --fg-bright:    #111111;
+  --fg-muted:     #888888;
+  --green:        #228822;
+  --green-dim:    #66aa66;
+  --green-glow:   rgba(34, 136, 34, 0.08);
+  --border-color: #e0e0e0;
   --scanline:     rgba(0, 0, 0, 0.02);
-  --img-filter:   grayscale(100%) brightness(0.8);
+  --img-filter:   grayscale(100%) brightness(0.9);
   --img-filter-hover: grayscale(0%) brightness(1);
 }
 
@@ -68,21 +68,6 @@ body {
   font-size: 0.9rem;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-
-  // subtle scanline overlay
-  &::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background: repeating-linear-gradient(
-      transparent,
-      transparent 2px,
-      var(--scanline) 2px,
-      var(--scanline) 4px
-    );
-    z-index: 9999;
-  }
 }
 
 // -- Layout ------------------------------------------------------------------
