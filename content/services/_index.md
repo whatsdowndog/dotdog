@@ -7,11 +7,17 @@ We offer SRE and reliability consulting for teams that want to ship faster witho
 
 ## What we help with
 
-- **Observability**: instrumentation, tracing, metrics, logging, and making sure you actually understand what your systems are doing before they stop doing it. We can also help with cost management - o11y spend can sneak up on you!
 - **CI/CD**: pipeline design, test suite speedups, build optimization, deployment automation, and getting your delivery cycle time down from "after the CAB meeting" to continuous, on demand
-- **Performance tuning**: profiling, load testing, bottleneck analysis, and the kind of deep-dive work that turns "it's slow" into "it's fixed". We understand the tail at scale, we love taming spike p99s
-- **Infrastructure migration**: moving between cloud providers, containerization, Kubernetes and all the fun that comes with it. We strongly believe in zero-downtime migrations, but also know when to move faster.
-- **Incident management**: on-call design, runbooks, post-incident review, and building a culture where incidents make you stronger
+
+- **Observability**: instrumentation, tracing, metrics, logging, and making sure you actually understand what your systems are doing before they stop doing it. We can also help with cost management - o11y spend can sneak up on you.
+
+- **Reliability/resilience**: load shedding, concurrency limits, resource isolation, feature flags, automatic rollbacks, circuit breakers, and much more. Problems happen in production - we know how to reduce the blast radius.
+
+- **Performance tuning**: profiling, load testing, bottleneck analysis, and the kind of deep-dive work that turns "it's slow" into "it's fixed". We understand the tail at scale, we love taming spikey p99s, and we love making code predictably fast.
+
+- **Infrastructure migration**: moving between cloud providers, containerization, Kubernetes, databases, and all the fun that comes with it. We strongly believe in zero-downtime migrations, but also know when to move faster.
+
+- **Incident management**: on-call design, runbooks, post-incident review, and building a culture where incidents make you stronger.
 
 ## How we work
 
