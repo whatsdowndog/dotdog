@@ -52,13 +52,20 @@ In terms of Jenkins specifically, this meant:
 - migrating all inline pipelines to code - changes tracked through commits and PRs, rather than through Jenkins' awkward XML diffing
 - one "shape" of pipeline for each kind of repo: backend, frontend, infrastructure. We wrote a small tool to template these so that they would stay consistent over time, and allow the client's DevOps team to roll out changes across all pipelines easily
 
-We shamelessly ~cribbed~ were inspired by the Jenkins open source org's own Jenkins setup, which taught us a lot about how the Jenkins team thinks about Jenkins! We highly recommend this trick as it often also gives insight into the future direction that tools are looking at.
+We shamelessly ~cribbed~ were inspired by the Jenkins open source org's [own Jenkins setup](https://ci.jenkins.io/), which taught us a lot about how the Jenkins team thinks about Jenkins! We highly recommend this trick for any tool, as it often offers insight into its future direction.
 
-We ended up with a massively simplified setup that was now backed up fully as code, ran significantly faster (due to jobs no longer sitting in queues), and could be understood by any engineer at the company. We also received feedback that teams were no longer afraid of CI and felt able to spin up new pipelines themselves, following the established patterns.
+We ended up with a massively simplified setup:
+* 800 jobs reduced to ~40 pipelines - one per active repo
+* everything backed up fully as code, most pipelines generated from established templates
+* pipelines ran significantly faster (due to jobs no longer sitting in queues)
+* pipelines could be understood by any engineer at the company
+* data teams started using Jenkinsfiles and shared CI/CD practices
+
+We also received feedback that teams were no longer afraid of CI (!) and felt empowered to spin up new pipelines themselves, following the established patterns.
 
 ## the lesson
 
 CI/CD rot is real. every shortcut, every copy-paste, every "just add a new job" adds maintenance burden that compounds silently. You don't notice it accumulating because each individual change is small and reasonable, and by the time you notice, you have 800 jobs and nobody can explain why half of them exist. The fix is simple and boring engineering: shared patterns, config as code, clear ownership, and the willingness to delete things:
 **if nobody can explain what a pipeline does, it probably shouldn't exist**
 
-*CI/CD setups that nobody understands are a reliability risk. If your build system has grown beyond anyone's ability to reason about it, [we can help untangle it](mailto:hello@whatsdown.dog).*
+*CI/CD setups that nobody understands are a reliability risk. If your build system has grown beyond anyone's ability to reason about it, we've seen this pattern before and can help untangle it - [get in touch!](mailto:hello@whatsdown.dog)*
